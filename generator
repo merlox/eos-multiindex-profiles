@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Do generator.sh <contract-name> from inside the folder"
+
+if [[ $# -ne 1 ]]; then
+    exit 1
+fi
+
+eosiocpp -o $1.wast $1.cpp
+eosiocpp -g $1.abi $1.cpp
+
+cleos set contract $1 ../$1 -p $1@active
